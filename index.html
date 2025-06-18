@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Library</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      background-color: #ede5ff;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+    }
+
+    nav {
+      width: 100%;
+      height: 80px;
+      background-color: #ede5ff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    .nav__list {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav__link {
+      text-decoration: none;
+      color: #7342d6;
+      font-weight: 500;
+      padding: 8px 16px;
+    }
+
+    .nav__link--primary {
+      color: #7342d6;
+      border: 2px solid #7342d6;
+      border-radius: 5px;
+      background-color: transparent;
+      padding: 8px 16px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+}
+
+    .nav__link {
+  position: relative;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav__link:hover {
+  color: #5e2eb8;
+  transform: translateY(-2px);
+}
+
+.nav__link::after {
+  content: "";
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 2px;
+  background-color: #7342d6;
+  transition: width 0.3s ease;
+}
+
+.nav__link:hover::after {
+  width: 100%;
+}
+
+.nav__link--primary {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.nav__link--primary:hover {
+  background-color: #5e2eb8;
+  transform: scale(1.05);
+  color: white;
+}
+
+    .main-heading {
+      text-align: center;
+      font-size: 2rem;
+      margin-top: 2rem;
+      color: #333;
+    }
+
+    @media (max-width: 1024px) {
+  .featured-books__container,
+  .latest-books__container {
+    grid-template-columns: repeat(2, 1fr); /* 2 per row */
+  }
+}
+
+@media (max-width: 600px) {
+  .featured-books__container,
+  .latest-books__container {
+    grid-template-columns: 1fr; /* 1 per row on phones */
+  }
+}
+
+    .featured-books__container,
+.latest-books__container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+    .book {
+      background-color: rgb(233, 226, 255);
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book {
+  padding: 0.5rem;         /* Reduce inner space */
+  border-radius: 8px;      /* Optional: tighter corner */
+  background-color: transparent;
+  box-shadow: none;
+  text-align: center;
+}
+
+.book__image-wrapper {
+  padding: 0;              /* Remove padding inside wrapper */
+  margin-bottom: 0.5rem;   /* Less gap below image */
+  margin-left: 1rem;
+  margin-right: 1rem;
+  background: transparent;
+  box-shadow: none;
+}
+
+.book img {
+  width: 120px;            /* Slightly bigger image */
+  height: auto;
+  border-radius: 4px;
+}
+
+.book h3 {
+  font-size: 1rem;
+  margin: 0.10rem 0;       /* Tight spacing above/below title */
+}
+
+.book .stars {
+  margin: 0.10rem 0;
+}
+
+.book p {
+  font-size: 0.875rem;
+  margin: 0.10rem 0;       /* Less gap above/below price */
+}
+
+.latest-books__container,
+.featured-books__container {
+  gap: 1rem; /* Slight increase to balance spacing without box */
+}
+
+.book:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+    .book img {
+      width: 190px;
+      height: auto;
+      border-radius: 6px;
+    }
+
+    .book__image-wrapper {
+  background-color: rgb(233, 226, 255); /* 👈 Light lavender or your preferred color */
+  padding: -1rem;
+  border-radius: 1px;
+  margin-bottom: -1rem;
+}
+
+.book .stars {
+  color: #f8b400; /* gold/yellow */
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+    .highlight {
+      color: #7342d6;
+      font-weight: 600;
+    }
+
+    #ds {
+      background-color: #464646;
+      color: white;
+      padding: 3rem 0;
+      text-align: center;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .social-link {
+      color: #fff;
+      font-size: 1rem;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-link:hover {
+  color: #7342d6;
+  transform: scale(1.2);
+}
+
+    .ds-footer {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    button {
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.books-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 2rem auto 1rem;
+  padding: 0 1rem;
+}
+
+.books-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.sort-dropdown {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.featured-books__container,
+.latest-books__container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1rem;
+  overflow-x: hidden;
+}
+  </style>
+</head>
+<body>
+
+  <nav>
+    <img class="logo" src="assets/Library.svg" alt="Library Logo" />
+    <ul class="nav__list">
+      <li><a href="#" class="nav__link">Home</a></li>
+      <li><a href="#" class="nav__link">Contact</a></li>
+      <li><a href="#" class="nav__link nav__link--primary">Books</a></li>
+    </ul>
+  </nav>
+
+  <div class="books-header">
+  <h2 class="books-title">All <span class="highlight">Books</span></h2>
+  <select class="sort-dropdown">
+    <option value="">Sort</option>
+    <option value="price-low-high">Price: Low to High</option>
+    <option value="price-high-low">Price: High to Low</option>
+    <option value="title-a-z">Title: A-Z</option>
+    <option value="title-z-a">Title: Z-A</option>
+  </select>
+</div>
+
+  <section id="featured-books">
+    <div class="featured-books__container">
+      <div class="book">
+        <img src="assets/crack the coding interview.png" alt="Cracking the Coding Interview" />
+        <h3>Cracking the Coding Interview</h3>
+        <div class="stars">★★★★★</div> <!-- or use 4 out of 5 -->
+        <p><span class="highlight">$14.95</span></p>
+      </div>
+      <div class="book">
+        <img src="assets/atomic habits.jpg" alt="Atomic Habits" />
+        <h3>Atomic Habits</h3>
+        <div class="stars">★★★★★</div> <!-- or use 4 out of 5 -->
+        <p><span class="highlight">$12.95</span></p>
+      </div>
+      <div class="book">
+        <img src="assets/david goggins.jpeg" alt="Can't Hurt Me" />
+        <h3>Can't Hurt Me</h3>
+        <div class="stars">★★★★★</div> <!-- or use 4 out of 5 -->
+        <p><span class="highlight">$28.95</span></p>
+      </div>
+      <div class="book">
+        <img src="assets/deep work.jpeg" alt="Deep Work" />
+        <h3>Deep Work</h3>
+        <div class="stars">★★★★★</div> <!-- or use 4 out of 5 -->
+        <p><span class="highlight">$22.95</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="latest-books">
+    <div class="latest-books__container">
+      <div class="book">
+        <img src="assets/book-1.jpeg" alt="The 10x Rule" />
+        <h3>The 10x Rule</h3>
+        <div class="stars">★★★★★</div> <!-- or use 4 out of 5 -->
+        <p><span class="highlight">$14.95</span></p>
+      </div>
+      <div class="book">
+        <img src="assets/book-2.jpeg" alt="Be Obsessed or Be Average" />
+        <h3>Be Obsessed or Be Average</h3>
+        <div class="stars">★★★★★</div> <!-- or use 4 out of 5 -->
+        <p><span class="highlight">$14.95</span></p>
+      </div>
+      <div class="book">
+        <img src="assets/book-3.jpeg" alt="Rich Dad Poor Dad" />
+        <h3>Rich Dad Poor Dad</h3>
+        <div class="stars">★★★★★</div> <!-- or use 4 out of 5 -->
+        <p><span class="highlight">$14.95</span></p>
+      </div>
+      <div class="book">
+        <img src="assets/book-4.jpeg" alt="Cashflow Quadrant" />
+        <h3>Cashflow Quadrant</h3>
+        <div class="stars">★★★★★</div> <!-- or use 4 out of 5 -->
+        <p><span class="highlight">$14.95</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="ds">
+    <h1 class="section_title">Library</h1>
+    <div class="social-links">
+      <a href="#" class="social-link"><i class="fa-solid fa-house"></i><span class="link-label">Home</span></a>
+      <a href="#" class="social-link"><i class="fa-solid fa-info"></i><span class="link-label">About</span></a>
+      <a href="#" class="social-link"><i class="fa-solid fa-bookmark"></i><span class="link-label">Books</span></a>
+      <a href="#" class="social-link"><i class="fa-solid fa-comments"></i><span class="link-label">Contacts</span></a>
+    </div>
+    <div class="ds-footer">
+      <p>Thank you for visiting my portfolio. Let's connect!</p>
+      <p>© 2025 Library</p>
+    </div>
+  </section>
+
+</body>
+</html>
