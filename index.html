@@ -150,6 +150,13 @@
   border-radius: 4px;
 }
 
+.book img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
 .book h3 {
   font-size: 1rem;
   margin: 0.10rem 0;       /* Tight spacing above/below title */
@@ -185,6 +192,10 @@
   padding: -1rem;
   border-radius: 1px;
   margin-bottom: -1rem;
+}
+
+.book__image-wrapper {
+  padding: 0.5rem;
 }
 
 .book .stars {
@@ -282,9 +293,46 @@ html, body {
   padding: 1rem;
   overflow-x: hidden;
 }
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem; /* prevent touching the screen edge */
+  box-sizing: border-box;
+}
+
   </style>
 </head>
 <body>
+
+  <script>
+  const sortSelect = document.getElementById('sortSelect');
+  const container = document.querySelector('.latest-books__container'); // or use .featured-books__container
+  const books = Array.from(container.children);
+
+  sortSelect.addEventListener('change', (e) => {
+    const option = e.target.value;
+    let sorted;
+
+    if (option === "A-Z") {
+      sorted = books.sort((a, b) =>
+        a.dataset.title.localeCompare(b.dataset.title)
+      );
+    } else if (option === "Z-A") {
+      sorted = books.sort((a, b) =>
+        b.dataset.title.localeCompare(a.dataset.title)
+      );
+    } else if (option === "RATING_HIGH") {
+      sorted = books.sort((a, b) => b.dataset.rating - a.dataset.rating);
+    } else if (option === "RATING_LOW") {
+      sorted = books.sort((a, b) => a.dataset.rating - b.dataset.rating);
+    }
+
+    // Re-render sorted books
+    sorted.forEach(book => container.appendChild(book));
+  });
+</script>
 
   <nav>
     <img class="logo" src="assets/Library.svg" alt="Library Logo" />
