@@ -307,32 +307,44 @@ html, body {
 <body>
 
   <script>
+document.addEventListener("DOMContentLoaded", () => {
   const sortSelect = document.getElementById('sortSelect');
-  const container = document.querySelector('.latest-books__container'); // or use .featured-books__container
-  const books = Array.from(container.children);
+  const featuredContainer = document.querySelector('.featured-books__container');
+  const latestContainer = document.querySelector('.latest-books__container');
 
-  sortSelect.addEventListener('change', (e) => {
-    const option = e.target.value;
-    let sorted;
+  function sortBooks(container, sortType) {
+    const books = Array.from(container.querySelectorAll(".book"));
+    let sortedBooks = [...books];
 
-    if (option === "A-Z") {
-      sorted = books.sort((a, b) =>
+    if (sortType === "title-a-z") {
+      sortedBooks.sort((a, b) =>
         a.dataset.title.localeCompare(b.dataset.title)
       );
-    } else if (option === "Z-A") {
-      sorted = books.sort((a, b) =>
+    } else if (sortType === "title-z-a") {
+      sortedBooks.sort((a, b) =>
         b.dataset.title.localeCompare(a.dataset.title)
       );
-    } else if (option === "RATING_HIGH") {
-      sorted = books.sort((a, b) => b.dataset.rating - a.dataset.rating);
-    } else if (option === "RATING_LOW") {
-      sorted = books.sort((a, b) => a.dataset.rating - b.dataset.rating);
+    } else if (sortType === "price-low-high") {
+      sortedBooks.sort((a, b) =>
+        parseFloat(a.dataset.price) - parseFloat(b.dataset.price)
+      );
+    } else if (sortType === "price-high-low") {
+      sortedBooks.sort((a, b) =>
+        parseFloat(b.dataset.price) - parseFloat(a.dataset.price)
+      );
     }
 
-    // Re-render sorted books
-    sorted.forEach(book => container.appendChild(book));
+    sortedBooks.forEach(book => container.appendChild(book));
+  }
+
+  sortSelect.addEventListener("change", (e) => {
+    const sortType = e.target.value;
+    if (featuredContainer) sortBooks(featuredContainer, sortType);
+    if (latestContainer) sortBooks(latestContainer, sortType);
   });
+});
 </script>
+
 
   <nav>
     <img class="logo" src="assets/Library.svg" alt="Library Logo" />
@@ -345,8 +357,7 @@ html, body {
 
   <div class="books-header">
   <h2 class="books-title">All <span class="highlight">Books</span></h2>
-  <select class="sort-dropdown">
-    <option value="">Sort</option>
+<select id="sortSelect" class="sort-dropdown">    <option value="">Sort</option>
     <option value="price-low-high">Price: Low to High</option>
     <option value="price-high-low">Price: High to Low</option>
     <option value="title-a-z">Title: A-Z</option>
@@ -355,62 +366,82 @@ html, body {
 </div>
 
   <section id="featured-books">
-    <div class="featured-books__container">
-      <div class="book">
-        <img src="assets/crack the coding interview.png" alt="Cracking the Coding Interview" />
-        <h3>Cracking the Coding Interview</h3>
-        <div class="stars">★★★★★</div> <!-- or use 4 out of 5 -->
-        <p><span class="highlight">$14.95</span></p>
-      </div>
-      <div class="book">
-        <img src="assets/atomic habits.jpg" alt="Atomic Habits" />
-        <h3>Atomic Habits</h3>
-        <div class="stars">★★★★★</div> <!-- or use 4 out of 5 -->
-        <p><span class="highlight">$12.95</span></p>
-      </div>
-      <div class="book">
-        <img src="assets/david goggins.jpeg" alt="Can't Hurt Me" />
-        <h3>Can't Hurt Me</h3>
-        <div class="stars">★★★★★</div> <!-- or use 4 out of 5 -->
-        <p><span class="highlight">$28.95</span></p>
-      </div>
-      <div class="book">
-        <img src="assets/deep work.jpeg" alt="Deep Work" />
-        <h3>Deep Work</h3>
-        <div class="stars">★★★★★</div> <!-- or use 4 out of 5 -->
-        <p><span class="highlight">$22.95</span></p>
-      </div>
-    </div>
-  </section>
+  <div class="featured-books__container">
 
-  <section id="latest-books">
-    <div class="latest-books__container">
-      <div class="book">
-        <img src="assets/book-1.jpeg" alt="The 10x Rule" />
-        <h3>The 10x Rule</h3>
-        <div class="stars">★★★★★</div> <!-- or use 4 out of 5 -->
-        <p><span class="highlight">$14.95</span></p>
+    <div class="book" data-title="Cracking the Coding Interview" data-price="14.95" data-rating="4.5">
+      <img src="assets/crack the coding interview.png" alt="Cracking the Coding Interview" />
+      <h3>Cracking the Coding Interview</h3>
+      <div class="stars">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
       </div>
-      <div class="book">
-        <img src="assets/book-2.jpeg" alt="Be Obsessed or Be Average" />
-        <h3>Be Obsessed or Be Average</h3>
-        <div class="stars">★★★★★</div> <!-- or use 4 out of 5 -->
-        <p><span class="highlight">$14.95</span></p>
-      </div>
-      <div class="book">
-        <img src="assets/book-3.jpeg" alt="Rich Dad Poor Dad" />
-        <h3>Rich Dad Poor Dad</h3>
-        <div class="stars">★★★★★</div> <!-- or use 4 out of 5 -->
-        <p><span class="highlight">$14.95</span></p>
-      </div>
-      <div class="book">
-        <img src="assets/book-4.jpeg" alt="Cashflow Quadrant" />
-        <h3>Cashflow Quadrant</h3>
-        <div class="stars">★★★★★</div> <!-- or use 4 out of 5 -->
-        <p><span class="highlight">$14.95</span></p>
-      </div>
+      <p><span class="highlight">$14.95</span></p>
     </div>
-  </section>
+
+    <div class="book" data-title="Atomic Habits" data-price="14.95" data-rating="4.5">
+      <img src="assets/atomic habits.jpg" alt="Atomic Habits" />
+      <h3>Atomic Habits</h3>
+      <div class="stars">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+      </div>
+      <p> <span class="highlight">$14.95</span></p>
+    </div>
+
+    <div class="book" data-title="Can't Hurt Me" data-price="28.95" data-rating="4.5">
+      <img src="assets/david goggins.jpeg" alt="Can't Hurt Me" />
+      <h3>Can't Hurt Me</h3>
+      <div class="stars">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+      </div>
+      <p><span class="highlight">$28.95</span></p>
+    </div>
+
+    <div class="book" data-title="Deep Work" data-price="22.95" data-rating="4.5">
+      <img src="assets/deep work.jpeg" alt="Deep Work" />
+      <h3>Deep Work</h3>
+      <div class="stars">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+      </div>
+      <p><span class="highlight">$22.95</span></p>
+    </div>
+
+    <div class="book" data-title="Rich Dad Poor Dad" data-price="14.95" data-rating="4.5">
+      <img src="assets/book-3.jpeg" alt="Rich Dad Poor Dad" />
+      <h3>Rich Dad Poor Dad</h3>
+      <div class="stars">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+      </div>
+      <p><span class="highlight">$14.95</span></p>
+    </div>
+
+    <div class="book" data-title="Cashflow Quadrant" data-price="14.95" data-rating="4.5">
+      <img src="assets/book-4.jpeg" alt="Cashflow Quadrant" />
+      <h3>Cashflow Quadrant</h3>
+      <div class="stars">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+      </div>
+      <p><span class="highlight">$14.95</span></p>
+    </div>
+
+    <div class="book" data-title="Be Obsessed or Be Average" data-price="14.95" data-rating="4.5">
+      <img src="assets/book-2.jpeg" alt="Be Obsessed or Be Average" />
+      <h3>Be Obsessed or Be Average</h3>
+      <div class="stars">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+      </div>
+      <p><span class="highlight">$14.95</span></p>
+    </div>
+
+    <div class="book" data-title="The 10x Rule" data-price="14.95" data-rating="4.5">
+      <img src="assets/book-1.jpeg" alt="The 10x Rule" />
+      <h3>The 10x Rule</h3>
+      <div class="stars">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+      </div>
+      <p><span class="highlight">$14.95</span></p>
+    </div>
+
+  </div>
+</section>
 
   <section id="ds">
     <h1 class="section_title">Library</h1>
