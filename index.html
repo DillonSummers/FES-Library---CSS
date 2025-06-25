@@ -188,6 +188,53 @@ nav {
   }
 }
 
+#ds {
+  background-color: #333; /* Dark gray */
+  padding: 4rem 0;
+  color: #ccc;
+  text-align: center;
+}
+
+#ds .section_title {
+  font-size: 2.5rem;
+  color: #fff;
+  margin-bottom: 2rem;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.social-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  font-size: 2rem;
+  transition: transform 0.2s ease;
+}
+
+.social-link:hover {
+  transform: scale(1.1);
+}
+
+.link-label {
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  color: #ccc;
+}
+
+.ds-footer p {
+  color: #aaa;
+  font-size: 1rem;
+  margin: 0.25rem 0;
+}
+
   </style>
 </head>
 <body>
@@ -386,18 +433,36 @@ document.addEventListener("DOMContentLoaded", () => {
 </section>
 
   <section id="ds">
-    <h1 class="section_title">Library</h1>
-    <div class="social-links">
-      <a href="#" class="social-link"><i class="fa-solid fa-house"></i><span class="link-label">Home</span></a>
-      <a href="#" class="social-link"><i class="fa-solid fa-info"></i><span class="link-label">About</span></a>
-      <a href="#" class="social-link"><i class="fa-solid fa-bookmark"></i><span class="link-label">Books</span></a>
-      <a href="#" class="social-link"><i class="fa-solid fa-comments"></i><span class="link-label">Contacts</span></a>
+  <div class="container">
+    <div class="row">
+      <h1 class="section_title">Library</h1>
+
+      <div class="social-links">
+        <a href="#" class="social-link">
+          <i class="fa-solid fa-house"></i>
+          <span class="link-label">Home</span>
+        </a>
+        <a href="#" class="social-link">
+          <i class="fa-solid fa-info"></i>
+          <span class="link-label">About</span>
+        </a>
+        <a href="#" class="social-link">
+          <i class="fa-solid fa-bookmark"></i>
+          <span class="link-label">Books</span>
+        </a>
+        <a href="#" class="social-link">
+          <i class="fa-solid fa-comments"></i>
+          <span class="link-label">Contacts</span>
+        </a>
+      </div>
+
+      <div class="ds-footer">
+        <p>Thank you for visiting my portfolio. Let's connect!</p>
+        <p>© 2025 Library</p>
+      </div>
     </div>
-    <div class="ds-footer">
-      <p>Thank you for visiting my portfolio. Let's connect!</p>
-      <p>© 2025 Library</p>
-    </div>
-  </section>
+  </div>
+</section>
 
 </body>
 </html>
